@@ -1,6 +1,7 @@
 #pragma once
 #include "../Math/Vector2.h"
 #include "../Math/Color.h"
+#include "Texture.h"
 
 struct SDL_Renderer;
 struct SDL_Window;
@@ -29,13 +30,17 @@ namespace defender
 		int GetWidth() { return m_width; }
 		int GetHeight() { return m_height; }
 
+		void Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle = 0);
+		
+		friend class Text;
+		friend class Texture;
+
 	private:
 		int m_width = 0;
 		int m_height = 0;
 
 		Color m_clearColor { 0, 0, 0, 255 };
 
-		friend class Text;
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;
 	};

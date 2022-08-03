@@ -1,12 +1,14 @@
 #include "Renderer.h" 
 #include <SDL.h> 
 #include <SDL_ttf.h>
+#include <SDL_image.h>
 
 namespace defender
 {
 	void Renderer::Initialize()
 	{
 		SDL_Init(SDL_INIT_VIDEO);
+		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 		TTF_Init();
 	}
 
@@ -15,6 +17,7 @@ namespace defender
 		SDL_DestroyRenderer(m_renderer);
 		SDL_DestroyWindow(m_window);
 		TTF_Quit();
+		IMG_Quit();
 	}
 
 	void Renderer::CreateWindow(const char* name, int width, int height)
@@ -59,5 +62,18 @@ namespace defender
 	{
 		SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
 		SDL_RenderDrawPoint(m_renderer, v.x, v.y);
+	}
+
+	void Renderer::Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle)
+	{
+		Vector2 size = texture->GetSize();
+
+		SDL_Rect dest;
+		dest.x = (int)position.x;
+		dest.y = (int)position.y;
+		dest.w = (int)size.x;
+		dest.h = (int)size.y;
+
+		SDL_RenderCopyEx(m_renderer, texture -> m_texture, nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
 	}
 }
