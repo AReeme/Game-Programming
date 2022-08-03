@@ -21,7 +21,7 @@ int main()
 
 		bool quit = false;
 		std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
-		texture->Create(defender::g_renderer, "kirby.png");
+		texture->Create(defender::g_renderer, "sf2.bmp");
 		while (!quit)
 		{
 			// Update (Engine)
@@ -34,7 +34,7 @@ int main()
 			//Render Model
 			defender::g_renderer.BeginFrame();
 
-			defender::g_renderer.Draw(texture, { 0, 0 }, 0);
+			defender::g_renderer.Draw(texture, { 400, 300 }, 0);
 
 			defender::g_renderer.EndFrame();
 		}
