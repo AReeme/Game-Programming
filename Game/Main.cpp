@@ -18,10 +18,10 @@ int main()
 
 	{
 		//Create Game
+		std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
+		texture->Create(defender::g_renderer, "sf2.png");
 
 		bool quit = false;
-		std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
-		texture->Create(defender::g_renderer, "sf2.bmp");
 		while (!quit)
 		{
 			// Update (Engine)

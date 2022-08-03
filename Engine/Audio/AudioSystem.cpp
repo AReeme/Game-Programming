@@ -1,4 +1,5 @@
 #include "AudioSystem.h"
+#include "Core\Logger.h"
 #include "fmod.hpp"
 
 void defender::AudioSystem::Initialize()
@@ -32,6 +33,12 @@ void defender::AudioSystem::AddAudio(const std::string& name, const std::string&
 	{
 		FMOD::Sound* sound = nullptr;
 		m_fmodSystem->createSound(filename.c_str(), FMOD_DEFAULT, 0, &sound);
+
+		if (sound == nullptr)
+		{
+			LOG("Error Creating Sound %s.", filename.c_str());
+		}
+
 		m_sounds[name] = sound;
 	}
 }
@@ -39,6 +46,12 @@ void defender::AudioSystem::AddAudio(const std::string& name, const std::string&
 void defender::AudioSystem::PlayAudio(const std::string& name, bool loop)
 {
 	auto iter = m_sounds.find(name);
+
+	if (iter == m_sounds.end())
+	{
+		LOG("Error could not find sound %s.", name.c_str());
+	}
+
 		if (iter != m_sounds.end())  
 		{
 			FMOD::Sound* sound = iter->second;
