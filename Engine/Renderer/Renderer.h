@@ -8,6 +8,9 @@ struct SDL_Window;
 
 namespace defender
 {
+	class Texture;
+	struct Transform;
+
 	class Renderer
 	{
 	public:
@@ -30,8 +33,9 @@ namespace defender
 		int GetWidth() { return m_width; }
 		int GetHeight() { return m_height; }
 
-		void Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle = 0);
-		
+		void Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle = 0, const Vector2& scale = Vector2{ 1, 1 }, const Vector2& registration = Vector2{ 0.5f, 0.5f });
+		void Draw(std::shared_ptr<Texture> texture, const Transform& transform, const Vector2& registration = Vector2{ 0.5f, 0.5f });
+
 		friend class Text;
 		friend class Texture;
 

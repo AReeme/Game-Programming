@@ -12,7 +12,7 @@ namespace defender
 		m_radius = CalculateRadius();
 	}
 
-	void Model::Draw(Renderer& renderer, const Vector2& position, float angle, float scale)
+	void Model::Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale)
 	{
 		// Draw Model
 		for (int i = 0; i < m_points.size() - 1; i++)
