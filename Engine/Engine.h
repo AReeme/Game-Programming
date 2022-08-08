@@ -9,6 +9,9 @@
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
 
+#include "Components/PlayerComponent.h"
+#include "Components/SpriteComponent.h"
+
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 
