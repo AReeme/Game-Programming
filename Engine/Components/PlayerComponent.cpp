@@ -1,6 +1,7 @@
 #include "PlayerComponent.h"
 #include "Engine.h"
 #include <iostream>
+#include <Components/PhysicsComponent.h>
 
 namespace defender
 {
@@ -10,24 +11,40 @@ namespace defender
 		//Input
 		if (defender::g_inputSystem.GetKeyDown(defender::key_left))
 		{
-			m_owner->GetTransform().position.x -= 180 * defender::g_time.deltaTime;
+			m_owner->GetTransform().rotation -= 180 * g_time.deltaTime;
 		}
 
 		if (defender::g_inputSystem.GetKeyDown(defender::key_right))
 		{
-			m_owner->GetTransform().position.x += 180 * defender::g_time.deltaTime;
+			m_owner->GetTransform().rotation += 180 * g_time.deltaTime;
 		}
 
-		//Set Thrust Speed
-		m_speed = 0;
+		float m_thrust = 0;
 		if (defender::g_inputSystem.GetKeyDown(defender::key_up))
 		{
-			m_owner->GetTransform().position.y -= 180 * defender::g_time.deltaTime;
+			m_thrust = 500;
 		}
 
-		if (defender::g_inputSystem.GetKeyDown(defender::key_down))
+		auto component = m_owner->GetComponent<PhysicsComponent>();
+		if (component)
 		{
-			m_owner->GetTransform().position.y += 180 * defender::g_time.deltaTime;
+			//Thrust Force
+			Vector2 force = Vector2::Rotate({ 1, 0 }, math::DegToRad(m_owner->GetTransform().rotation)) * m_thrust;
+			component->ApplyForce(force);
+
+			//Gravitational Force
+			force = (Vector2{ 400, 300 } - m_owner->GetTransform().position).Normalized() * 60.f;
+			component->ApplyForce(force);
+		}
+
+
+		if (defender::g_inputSystem.GetKeyDown(defender::key_space) == InputSystem::State::Pressed)
+		{
+			auto component = m_owner->GetComponent<AudioComponent>();
+			if (component)
+			{
+				component->Play();
+			}
 		}
 
 		//Calculate Force

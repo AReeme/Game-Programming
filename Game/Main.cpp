@@ -3,7 +3,7 @@
 int main()
 {
 	defender::InitializeMemory();
-	defender::SetFilePath("../Assets");
+	defender::SetFilePath("../Assets/Textures");
 
 	// Initialize Engine
 	defender::g_renderer.Initialize();
@@ -16,18 +16,26 @@ int main()
 
 	//Create Game
 	std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
-	texture->Create(defender::g_renderer, "sf2.png");
+	texture->Create(defender::g_renderer, "SpaceShip.png");
+
+	defender::g_audiosystem.AddAudio("Laser", "../Laser.wav");
 
 	//Create Actors
 	defender::Scene scene;
 
-	defender::Transform transform{ defender::Vector2{ 100, 100 }, 90, { 3, 3 } };
+	defender::Transform transform{ defender::Vector2{ 400, 300 }, 90, { 1, 1 } };
 	std::unique_ptr<defender::Actor> actor = std::make_unique<defender::Actor>();
+	actor.get()->GetTransform() = transform;
 	std::unique_ptr<defender::PlayerComponent> pcomponent = std::make_unique<defender::PlayerComponent>();
 	actor->AddComponent(std::move(pcomponent));
 	std::unique_ptr<defender::SpriteComponent> scomponent = std::make_unique<defender::SpriteComponent>();
 	scomponent->m_texture = texture;
 	actor->AddComponent(std::move(scomponent));
+	std::unique_ptr<defender::AudioComponent> acomponent = std::make_unique<defender::AudioComponent>();
+	acomponent->m_soundName = "Laser";
+	actor->AddComponent(std::move(acomponent));
+	std::unique_ptr<defender::PhysicsComponent> phcomponent = std::make_unique<defender::PhysicsComponent>();
+	actor->AddComponent(std::move(phcomponent));
 
 	scene.Add(std::move(actor));
 
@@ -51,7 +59,7 @@ int main()
 		defender::g_renderer.BeginFrame();
 
 		scene.Draw(defender::g_renderer);
-		defender::g_renderer.Draw(texture, { 400, 300 }, angle, { 2, 2 }, {0.5f, 0.5f});
+		//defender::g_renderer.Draw(texture, { 400, 300 }, angle, { 2, 2 }, {0.5f, 0.5f});
 		defender::g_renderer.EndFrame();
 	}
 

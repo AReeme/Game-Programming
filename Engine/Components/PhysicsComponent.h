@@ -1,5 +1,7 @@
 #pragma once
 #include "Framework/Component.h"
+#include "Math/Vector2.h"
+#include "Engine.h"
 
 namespace defender
 {
@@ -7,9 +9,14 @@ namespace defender
 	{
 	public:
 		PhysicsComponent() = default;
+
 		void Update() override;
+		void ApplyForce(const Vector2& force) { m_acceleration += force; }
 
-	private:
+	public:
+		Vector2 m_velocity;
+		Vector2 m_acceleration;
 
+		float m_damping = 1;
 	};
 }
