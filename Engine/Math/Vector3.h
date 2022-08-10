@@ -12,7 +12,7 @@ namespace defender
 		Vector3(float v) : x{ v }, y{ v }, z{ z } {}
 		Vector3(int x, int y, int z) : x{ (float)x }, y{ (float)y }, z{ (float)z } {}
 
-		void Set(float x, float y, float z) { this->x = x; this->y = y; }
+		void Set(float x, float y, float z) { this->x = x; this->y = y; this->z = z; }
 		float operator [] (size_t index) const { return (&x)[index]; }
 		float& operator [] (size_t index) { return (&x)[index]; }
 
