@@ -15,9 +15,11 @@ namespace defender
 		Vector2(int x, int y) : x{ (float)x }, y{ (float)y } {}
 
 		void Set(float x, float y) { this->x = x; this->y = y; }
+		float operator [] (size_t index) const { return (&x)[index]; }
+		float& operator [] (size_t index) { return (&x)[index]; }
+
 
 		//Arithmetic Operators
-		//Vector 2 = Vector2 + Vector2
 		Vector2 operator + (const Vector2& v) const { return Vector2{ this->x + v.x, this->y + v.y }; }
 		Vector2 operator - (const Vector2& v) const { return Vector2{ this->x - v.x, this->y - v.y }; }
 		Vector2 operator * (const Vector2& v) const { return Vector2{ this->x * v.x, this->y * v.y }; }
@@ -41,11 +43,9 @@ namespace defender
 		Vector2& operator /= (float s) { this->x /= s; this->y /= s; return *this; }
 
 		//Unary
-		//Vector2 = -Vector2
 		Vector2 operator - () const { return Vector2{ -x, -y}; }
 
 		//Comparison
-		//Vector2 == Vector2
 		bool operator == (const Vector2& v) const { return (this->x == v.x && this->y == v.y); }
 		bool operator != (const Vector2& v) const { return (this->x != v.x || this->y != v.y); }
 
