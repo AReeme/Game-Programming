@@ -12,6 +12,7 @@ namespace defender
 		Font(const std::string& filename, int fontSize);
 		~Font();
 
+		bool Create(const std::string& filename) { return false; }
 		void Load(const std::string& filename, int fontSize);
 
 	private:

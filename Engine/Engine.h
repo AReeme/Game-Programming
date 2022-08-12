@@ -18,6 +18,7 @@
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
+#include "Resource/ResourceManager.h"
 
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
@@ -35,5 +36,6 @@ namespace defender
 	extern Renderer g_renderer;
 	extern InputSystem g_inputSystem;
 	extern Time g_time;
+	extern ResourceManager g_resources;
 }
 

@@ -9,18 +9,19 @@ int main()
 	defender::g_renderer.Initialize();
 	defender::g_inputSystem.Initialize();
 	defender::g_audiosystem.Initialize();
+	defender::g_resources.Initialize();
 
 	//Create Window
 	defender::g_renderer.CreateWindow("Neumont", 800, 600);
 	defender::g_renderer.SetClearColor(defender::Color{ 50, 50, 50, 255 });
 
 	//Load Assets
-	std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
-	texture->Create(defender::g_renderer, "Textures/SpaceShip.png");
+	//std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
+	//texture->Create(defender::g_renderer, "Textures/SpaceShip.png");
+	std::shared_ptr<defender::Texture> texture = defender::g_resources.Get<defender::Texture>("Textures/SpaceShip.png", &defender::g_renderer);
 
-	std::shared_ptr<defender::Model> model = std::make_shared<defender::Model>();
-	model->Create("Model/Player.txt");
-
+	//std::shared_ptr<defender::Model> model = std::make_shared<defender::Model>();
+	//model->Create("Model/Player.txt");
 	defender::g_audiosystem.AddAudio("Laser", "Laser.wav");
 
 	//Create Actors
@@ -35,7 +36,7 @@ int main()
 	actor->AddComponent(std::move(pcomponent));
 
 	std::unique_ptr<defender::ModelComponent> mcomponent = std::make_unique<defender::ModelComponent>();
-	mcomponent->m_model = model;
+	mcomponent->m_model = defender::g_resources.Get<defender::Model>("Model/Player.txt");
 	actor->AddComponent(std::move(mcomponent));
 
 	//std::unique_ptr<defender::SpriteComponent> scomponent = std::make_unique<defender::SpriteComponent>();
@@ -54,7 +55,7 @@ int main()
 	std::unique_ptr<defender::Actor> child = std::make_unique<defender::Actor>(transformC);
 
 	std::unique_ptr<defender::ModelComponent> mcomponentC = std::make_unique<defender::ModelComponent>();
-	mcomponentC->m_model = model;
+	mcomponentC->m_model = defender::g_resources.Get<defender::Model>("Model/Player.txt");
 	child->AddComponent(std::move(mcomponentC));
 
 	actor->AddChild(std::move(child));
