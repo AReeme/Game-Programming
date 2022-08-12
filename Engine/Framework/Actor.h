@@ -17,6 +17,8 @@ namespace defender
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer);
 
+		void AddChild(std::unique_ptr<Actor> child);
+
 		void AddComponent(std::unique_ptr<Component> component);
 
 		template<typename T>
@@ -30,17 +32,21 @@ namespace defender
 		friend class Scene;
 		friend class Component;
 
+		Transform m_transform;
+
 	protected:
 		std::string m_tag;
 		bool m_destroy = false;
-		Transform m_transform;
 
 		//Physics
 		Vector2 m_velocity;
 		float m_damping = 1;
 
 		Scene* m_scene = nullptr;
+		Actor* m_parent = nullptr;
+
 		std::vector<std::unique_ptr<Component>> m_components;
+		std::vector<std::unique_ptr<Actor>> m_children;
 	};
 
 

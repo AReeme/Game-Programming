@@ -1,4 +1,5 @@
 #include "File.h"
+#include "Logger.h"
 #include <filesystem>
 #include <fstream>
 
@@ -29,7 +30,11 @@ namespace defender
 
 	bool ReadFile(const std::string& pathname, std::string& buffer)
 	{
-		if (!FileExists(pathname)) return false;
+		if (!FileExists(pathname))
+		{
+			LOG("Error: Could Not Read File %s", pathname.c_str());
+			return false;
+		}
 
 		//Get File Size and Set Buffer Size
 		size_t size;

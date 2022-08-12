@@ -3,7 +3,7 @@
 int main()
 {
 	defender::InitializeMemory();
-	defender::SetFilePath("../Assets/Textures");
+	defender::SetFilePath("../Assets");
 
 	// Initialize Engine
 	defender::g_renderer.Initialize();
@@ -14,28 +14,50 @@ int main()
 	defender::g_renderer.CreateWindow("Neumont", 800, 600);
 	defender::g_renderer.SetClearColor(defender::Color{ 50, 50, 50, 255 });
 
-	//Create Game
+	//Load Assets
 	std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
-	texture->Create(defender::g_renderer, "SpaceShip.png");
+	texture->Create(defender::g_renderer, "Textures/SpaceShip.png");
 
-	defender::g_audiosystem.AddAudio("Laser", "../Laser.wav");
+	std::shared_ptr<defender::Model> model = std::make_shared<defender::Model>();
+	model->Create("Model/Player.txt");
+
+	defender::g_audiosystem.AddAudio("Laser", "Laser.wav");
 
 	//Create Actors
 	defender::Scene scene;
 
-	defender::Transform transform{ defender::Vector2{ 400, 300 }, 90, { 1, 1 } };
+	// Main Actor
+	defender::Transform transform{ defender::Vector2{ 400, 300 }, 90, { 3, 3 } };
 	std::unique_ptr<defender::Actor> actor = std::make_unique<defender::Actor>();
 	actor.get()->GetTransform() = transform;
+
 	std::unique_ptr<defender::PlayerComponent> pcomponent = std::make_unique<defender::PlayerComponent>();
 	actor->AddComponent(std::move(pcomponent));
-	std::unique_ptr<defender::SpriteComponent> scomponent = std::make_unique<defender::SpriteComponent>();
-	scomponent->m_texture = texture;
-	actor->AddComponent(std::move(scomponent));
+
+	std::unique_ptr<defender::ModelComponent> mcomponent = std::make_unique<defender::ModelComponent>();
+	mcomponent->m_model = model;
+	actor->AddComponent(std::move(mcomponent));
+
+	//std::unique_ptr<defender::SpriteComponent> scomponent = std::make_unique<defender::SpriteComponent>();
+	//scomponent->m_texture = texture;
+	//actor->AddComponent(std::move(scomponent));
+
 	std::unique_ptr<defender::AudioComponent> acomponent = std::make_unique<defender::AudioComponent>();
 	acomponent->m_soundName = "Laser";
 	actor->AddComponent(std::move(acomponent));
+
 	std::unique_ptr<defender::PhysicsComponent> phcomponent = std::make_unique<defender::PhysicsComponent>();
 	actor->AddComponent(std::move(phcomponent));
+
+	// Child Actor
+	defender::Transform transformC{ defender::Vector2{ 10, 11 }, 0, { 1, 1 } };
+	std::unique_ptr<defender::Actor> child = std::make_unique<defender::Actor>(transformC);
+
+	std::unique_ptr<defender::ModelComponent> mcomponentC = std::make_unique<defender::ModelComponent>();
+	mcomponentC->m_model = model;
+	child->AddComponent(std::move(mcomponentC));
+
+	actor->AddChild(std::move(child));
 
 	scene.Add(std::move(actor));
 

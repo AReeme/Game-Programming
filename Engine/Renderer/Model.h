@@ -16,9 +16,12 @@ namespace defender
 		}
 		Model(const std::string& filename);
 
-		void Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale = Vector2 {1, 1});
+		bool Create(const std::string& filename);
 
-		void Load(const std::string& filename);
+		void Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale = Vector2 {1, 1});
+		void Draw(Renderer& renderer, const Transform& transform);
+
+		bool Load(const std::string& filename);
 		float CalculateRadius();
 
 		float GetRadius() { return m_radius; }
