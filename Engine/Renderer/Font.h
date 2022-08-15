@@ -1,11 +1,14 @@
 #pragma once
+#include "Math\Vector2.h" 
+#include "Resource/Resource.h"
+#include "Renderer.h"
 #include <string>
 
 struct _TTF_Font;
 
 namespace defender
 {
-	class Font
+	class Font : public Resource
 	{
 	public:
 		Font() = default;
@@ -13,7 +16,9 @@ namespace defender
 		~Font();
 
 		bool Create(const std::string& filename) { return false; }
-		void Load(const std::string& filename, int fontSize);
+		bool Create(const std::string& filename, int fontSize);
+		bool Create(std::string filename, ...) override;
+		bool Load(const std::string& filename, int fontSize);
 
 	private:
 		friend class Text;

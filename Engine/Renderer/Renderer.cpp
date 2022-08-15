@@ -65,7 +65,7 @@ namespace defender
 	void Renderer::DrawPoint(const Vector2& v, const Color& color)
 	{
 		SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
-		SDL_RenderDrawPoint(m_renderer, v.x, v.y);
+		SDL_RenderDrawPointF(m_renderer, v.x, v.y);
 	}
 
 	void Renderer::Draw(std::shared_ptr<Texture> texture, const Vector2& position, float angle, const Vector2& scale, const Vector2& registration)

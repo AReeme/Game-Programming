@@ -15,7 +15,7 @@ namespace defender
 		m_radius = CalculateRadius();
 	}
 
-	bool Model::Create(const std::string& filename, void* data)
+	bool Model::Create(std::string filename, ...)
 	{
 		if (!Load(filename))
 		{
@@ -28,7 +28,7 @@ namespace defender
 	void Model::Draw(Renderer& renderer, const Vector2& position, float angle, const Vector2& scale)
 	{
 		// Draw Model
-		for (int i = 0; i < m_points.size() - 1; i++)
+		for (size_t i = 0; i < m_points.size() - 1; i++)
 		{
 			defender::Vector2 p1 = Vector2::Rotate((m_points[i] * scale), angle) + position;
 			defender::Vector2 p2 = Vector2::Rotate((m_points[i + 1] * scale), angle) + position;

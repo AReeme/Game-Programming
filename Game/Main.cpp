@@ -11,6 +11,8 @@ int main()
 	defender::g_audiosystem.Initialize();
 	defender::g_resources.Initialize();
 
+	defender::Engine::Instance().Register();
+
 	//Create Window
 	defender::g_renderer.CreateWindow("Neumont", 800, 600);
 	defender::g_renderer.SetClearColor(defender::Color{ 50, 50, 50, 255 });
@@ -18,21 +20,25 @@ int main()
 	//Load Assets
 	//std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
 	//texture->Create(defender::g_renderer, "Textures/SpaceShip.png");
-	std::shared_ptr<defender::Texture> texture = defender::g_resources.Get<defender::Texture>("Textures/SpaceShip.png", &defender::g_renderer);
+	//std::shared_ptr<defender::Texture> texture = defender::g_resources.Get<defender::Texture>("Textures/SpaceShip.png", &defender::g_renderer);
 
 	//std::shared_ptr<defender::Model> model = std::make_shared<defender::Model>();
 	//model->Create("Model/Player.txt");
 	defender::g_audiosystem.AddAudio("Laser", "Laser.wav");
+	auto texture = defender::g_resources.Get<defender::Texture>("Textures/large_blue_02.png", defender::g_renderer);
+	auto font = defender::g_resources.Get<defender::Font>("fonts/Arcade.ttf", 10);
 
 	//Create Actors
 	defender::Scene scene;
 
 	// Main Actor
 	defender::Transform transform{ defender::Vector2{ 400, 300 }, 90, { 3, 3 } };
-	std::unique_ptr<defender::Actor> actor = std::make_unique<defender::Actor>();
+	//std::unique_ptr<defender::Actor> actor = std::make_unique<defender::Actor>();
+	std::unique_ptr<defender::Actor> actor = defender::Factory::Instance().Create<defender::Actor>("Actor");
+	actor->m_transform = transform;
 	actor.get()->GetTransform() = transform;
 
-	std::unique_ptr<defender::PlayerComponent> pcomponent = std::make_unique<defender::PlayerComponent>();
+	std::unique_ptr<defender::Component> pcomponent = defender::Factory::Instance().Create<defender::Component>("PlayerComponent");
 	actor->AddComponent(std::move(pcomponent));
 
 	std::unique_ptr<defender::ModelComponent> mcomponent = std::make_unique<defender::ModelComponent>();
@@ -47,7 +53,7 @@ int main()
 	acomponent->m_soundName = "Laser";
 	actor->AddComponent(std::move(acomponent));
 
-	std::unique_ptr<defender::PhysicsComponent> phcomponent = std::make_unique<defender::PhysicsComponent>();
+	std::unique_ptr<defender::Component> phcomponent = defender::Factory::Instance().Create<defender::Component>("PhysicsComponent");
 	actor->AddComponent(std::move(phcomponent));
 
 	// Child Actor

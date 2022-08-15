@@ -8,6 +8,8 @@
 
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
+#include "Framework/Factory.h"
+#include "Framework/Singleton.h"
 
 #include "Components/PlayerComponent.h"
 #include "Components/SpriteComponent.h"
@@ -18,6 +20,7 @@
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
+#include "Resource/Resource.h"
 #include "Resource/ResourceManager.h"
 
 #include "Renderer/Renderer.h"
@@ -37,5 +40,11 @@ namespace defender
 	extern InputSystem g_inputSystem;
 	extern Time g_time;
 	extern ResourceManager g_resources;
+	
+	class Engine : public Singleton<Engine>
+	{
+	public:
+		void Register();
+	};
 }
 

@@ -14,13 +14,13 @@ namespace defender
         }
     }
 
-    bool Texture::Create(const std::string& filename, void* data)
-    {
-        //Check Data is not null
+    //bool Texture::Create(const std::string& filename, void* data)
+    //{
+    //    //Check Data is not null
 
-        Renderer* renderer = static_cast<Renderer*>(data);
-        return Create(*renderer, filename);
-    }
+    //    Renderer* renderer = static_cast<Renderer*>(data);
+    //    return Create(*renderer, filename);
+    //}
 
     bool Texture::Create(Renderer& renderer, const std::string& filename)
     {
@@ -41,6 +41,16 @@ namespace defender
         SDL_FreeSurface(surface);
 
         return true;
+    }
+
+
+    bool Texture::Create(std::string filename, ...)
+    {
+        va_list args;
+        va_start(args, filename);
+        Renderer& renderer = va_arg(args, Renderer); 
+        va_end(args); 
+        return Create(renderer, filename);
     }
 
     defender::Vector2 Texture::GetSize() const

@@ -9,6 +9,6 @@ namespace defender
 
 	void ResourceManager::ShutDown()
 	{
-		//
+		m_resources.clear();
 	}
 }
