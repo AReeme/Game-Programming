@@ -18,7 +18,6 @@ namespace defender
 		float operator [] (size_t index) const { return (&x)[index]; }
 		float& operator [] (size_t index) { return (&x)[index]; }
 
-
 		//Arithmetic Operators
 		Vector2 operator + (const Vector2& v) const { return Vector2{ this->x + v.x, this->y + v.y }; }
 		Vector2 operator - (const Vector2& v) const { return Vector2{ this->x - v.x, this->y - v.y }; }
@@ -70,6 +69,7 @@ namespace defender
 		static const Vector2 right;
 	};
 
+	std::ostream& operator << (std::ostream& stream, const Vector2& v);
 	std::istream& operator >> (std::istream& stream, Vector2& v);
 
 	inline float Vector2::LengthSqr() 

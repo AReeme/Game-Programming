@@ -5,6 +5,38 @@ int main()
 	defender::InitializeMemory();
 	defender::SetFilePath("../Assets");
 
+	rapidjson::Document document;
+	bool success = defender::json::Load("json.txt", document);
+	assert(success);
+
+	std::string str;
+	defender::json::Get(document, "string", str);
+	std::cout << str << std::endl;
+
+	bool b;
+	defender::json::Get(document, "boolean", b);
+	std::cout << b << std::endl;
+
+	int i1;
+	defender::json::Get(document, "integer1", i1);
+	std::cout << i1 << std::endl;
+
+	int i2;
+	defender::json::Get(document, "integer2", i2);
+	std::cout << i2 << std::endl;
+
+	float f;
+	defender::json::Get(document, "float", f);
+	std::cout << f << std::endl;
+
+	defender::Vector2 v2;
+	defender::json::Get(document, "vector2", v2);
+	std::cout << v2 << std::endl;
+
+	defender::Color color;
+	defender::json::Get(document, "color", color);
+	std::cout << color << std::endl;
+
 	// Initialize Engine
 	defender::g_renderer.Initialize();
 	defender::g_inputSystem.Initialize();
@@ -17,58 +49,8 @@ int main()
 	defender::g_renderer.CreateWindow("Neumont", 800, 600);
 	defender::g_renderer.SetClearColor(defender::Color{ 50, 50, 50, 255 });
 
-	//Load Assets
-	//std::shared_ptr<defender::Texture> texture = std::make_shared<defender::Texture>();
-	//texture->Create(defender::g_renderer, "Textures/SpaceShip.png");
-	//std::shared_ptr<defender::Texture> texture = defender::g_resources.Get<defender::Texture>("Textures/SpaceShip.png", &defender::g_renderer);
-
-	//std::shared_ptr<defender::Model> model = std::make_shared<defender::Model>();
-	//model->Create("Model/Player.txt");
-	defender::g_audiosystem.AddAudio("Laser", "Laser.wav");
-	auto texture = defender::g_resources.Get<defender::Texture>("Textures/large_blue_02.png", defender::g_renderer);
-	auto font = defender::g_resources.Get<defender::Font>("fonts/Arcade.ttf", 10);
-
 	//Create Actors
 	defender::Scene scene;
-
-	// Main Actor
-	defender::Transform transform{ defender::Vector2{ 400, 300 }, 90, { 3, 3 } };
-	//std::unique_ptr<defender::Actor> actor = std::make_unique<defender::Actor>();
-	std::unique_ptr<defender::Actor> actor = defender::Factory::Instance().Create<defender::Actor>("Actor");
-	actor->m_transform = transform;
-	actor.get()->GetTransform() = transform;
-
-	std::unique_ptr<defender::Component> pcomponent = defender::Factory::Instance().Create<defender::Component>("PlayerComponent");
-	actor->AddComponent(std::move(pcomponent));
-
-	std::unique_ptr<defender::ModelComponent> mcomponent = std::make_unique<defender::ModelComponent>();
-	mcomponent->m_model = defender::g_resources.Get<defender::Model>("Model/Player.txt");
-	actor->AddComponent(std::move(mcomponent));
-
-	//std::unique_ptr<defender::SpriteComponent> scomponent = std::make_unique<defender::SpriteComponent>();
-	//scomponent->m_texture = texture;
-	//actor->AddComponent(std::move(scomponent));
-
-	std::unique_ptr<defender::AudioComponent> acomponent = std::make_unique<defender::AudioComponent>();
-	acomponent->m_soundName = "Laser";
-	actor->AddComponent(std::move(acomponent));
-
-	std::unique_ptr<defender::Component> phcomponent = defender::Factory::Instance().Create<defender::Component>("PhysicsComponent");
-	actor->AddComponent(std::move(phcomponent));
-
-	// Child Actor
-	defender::Transform transformC{ defender::Vector2{ 10, 11 }, 0, { 1, 1 } };
-	std::unique_ptr<defender::Actor> child = std::make_unique<defender::Actor>(transformC);
-
-	std::unique_ptr<defender::ModelComponent> mcomponentC = std::make_unique<defender::ModelComponent>();
-	mcomponentC->m_model = defender::g_resources.Get<defender::Model>("Model/Player.txt");
-	child->AddComponent(std::move(mcomponentC));
-
-	actor->AddChild(std::move(child));
-
-	scene.Add(std::move(actor));
-
-	float angle = 0;
 
 	bool quit = false;
 	while (!quit)
@@ -81,7 +63,6 @@ int main()
 		if (defender::g_inputSystem.GetKeyDown(defender::key_escape)) quit = true;
 
 		//Update Scene
-		angle += 360.0f * defender::g_time.deltaTime;
 		scene.Update();
 
 		//Render Model
