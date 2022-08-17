@@ -83,6 +83,7 @@
     <ClInclude Include="Resource\Resource.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Serialization\Json.h" />
+    <ClInclude Include="Serialization\Serializable.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Build\Assets\Bullet.txt" />
