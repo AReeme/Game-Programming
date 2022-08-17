@@ -2,6 +2,8 @@
 #include "rapidjson/document.h"
 #include <string>
 
+#define READ_DATA(value, data) defender::json::Get(value, #data, data)
+
 namespace defender
 {
 	struct Vector2;

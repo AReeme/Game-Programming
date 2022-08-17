@@ -10,7 +10,7 @@ namespace defender
 	class Renderer;
 	class Game;
 
-	class Scene
+	class Scene : public ISerializable
 	{
 	public:
 		Scene() = default;
@@ -20,7 +20,11 @@ namespace defender
 		void Update();
 		void Draw(Renderer& renderer);
 
+		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
+
 		void Add(std::unique_ptr<Actor> actor);
+		void RemoveAll();
 
 		template<typename T>
 		T* GetActor();
@@ -30,6 +34,7 @@ namespace defender
 	private:
 		Game* m_game;
 		std::list<std::unique_ptr<Actor>> m_actors;
+
 	};
 
 

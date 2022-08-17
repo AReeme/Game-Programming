@@ -9,10 +9,9 @@ namespace defender
 		PlayerComponent() = default;
 		void Update() override;
 
+		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
 	private:
-		float m_health{ 10 };
-
-		float m_speed = 0;
-		float m_maxSpeed = 400;
+		float speed{ 0 };
 	};
 }

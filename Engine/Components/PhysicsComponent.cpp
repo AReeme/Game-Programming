@@ -4,11 +4,21 @@ namespace defender
 {
 	void PhysicsComponent::Update()
 	{
-		m_velocity += m_acceleration * g_time.deltaTime;
-		m_owner->GetTransform().position += m_velocity * g_time.deltaTime;
-		m_velocity *= m_damping;
+		velocity += acceleration * g_time.deltaTime;
+		m_owner->GetTransform().position += velocity * g_time.deltaTime;
+		velocity *= damping;
 
-		m_acceleration = Vector2::zero;
+		acceleration = Vector2::zero;
+	}
+
+	bool PhysicsComponent::Write(const rapidjson::Value& value) const
+	{
+		return true;
+	}
+
+	bool PhysicsComponent::Read(const rapidjson::Value& value)
+	{
+		return true;
 	}
 
 }
