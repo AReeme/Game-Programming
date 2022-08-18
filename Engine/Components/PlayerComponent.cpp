@@ -33,8 +33,8 @@ namespace defender
 			component->ApplyForce(force);
 
 			//Gravitational Force
-			force = (Vector2{ 400, 300 } - m_owner->GetTransform().position).Normalized() * 60.f;
-			component->ApplyForce(force);
+			/*force = (Vector2{ 400, 300 } - m_owner->GetTransform().position).Normalized() * 60.f;
+			component->ApplyForce(force);*/
 		}
 
 

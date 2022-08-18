@@ -1,6 +1,7 @@
 #include "SpriteComponent.h"
 #include "Renderer/Renderer.h"
 #include "Framework/Actor.h"
+#include "Engine.h"
 
 namespace defender
 {
@@ -19,6 +20,11 @@ namespace defender
 	}
 	bool SpriteComponent::Read(const rapidjson::Value& value)
 	{
+		std::string texture_name;
+		READ_DATA(value, texture_name);
+
+		m_texture = g_resources.Get<Texture>(texture_name, g_renderer);
+
 		return false;
 	}
 }
