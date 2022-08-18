@@ -14,11 +14,12 @@
 #include "Framework/Factory.h"
 #include "Framework/Singleton.h"
 
+#include "Components/AudioComponent.h"
+#include "Components/ModelComponent.h"
+#include "Components/PhysicsComponent.h"
 #include "Components/PlayerComponent.h"
 #include "Components/SpriteComponent.h"
-#include "Components/AudioComponent.h"
-#include "Components/PhysicsComponent.h"
-#include "Components/ModelComponent.h"
+#include "Components/SpriteAnimComponent.h"
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"

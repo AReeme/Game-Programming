@@ -8,6 +8,7 @@ namespace defender
 {
 	struct Vector2;
 	struct Color;
+	struct Rect;
 }
 
 namespace defender::json
@@ -20,4 +21,5 @@ namespace defender::json
 	bool Get(const rapidjson::Value& value, const std::string& name, std::string& data);
 	bool Get(const rapidjson::Value& value, const std::string& name, Vector2& data);
 	bool Get(const rapidjson::Value& value, const std::string& name, Color& data);
+	bool Get(const rapidjson::Value& value, const std::string& name, Rect& data);
 }

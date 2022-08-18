@@ -3,6 +3,7 @@
 #include "Core/Logger.h"
 #include "Math/Vector2.h"
 #include "Math/Color.h"
+#include "Math/Rect.h"
 #include <fstream>
 
 namespace defender::json
@@ -31,7 +32,7 @@ namespace defender::json
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsInt() ==
 			false)
 		{
-			LOG("error reading json data %s", name.c_str());
+			LOG("Couldn't find json data %s", name.c_str());
 			return false;
 		}
 
@@ -44,7 +45,7 @@ namespace defender::json
 	{
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsNumber() == false)
 		{
-			LOG("error reading json data %s", name.c_str());
+			LOG("Couldn't find json data %s", name.c_str());
 			return false;
 		}
 
@@ -57,7 +58,7 @@ namespace defender::json
 	{
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsBool() == false)
 		{
-			LOG("error reading json data %s", name.c_str());
+			LOG("Couldn't find json data %s", name.c_str());
 			return false;
 		}
 
@@ -70,7 +71,7 @@ namespace defender::json
 	{
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsString() == false)
 		{
-			LOG("error reading json data %s", name.c_str());
+			LOG("Couldn't find json data %s", name.c_str());
 			return false;
 		}
 
@@ -83,7 +84,7 @@ namespace defender::json
 	{
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 2)
 		{
-			LOG("error reading json data %s", name.c_str());
+			LOG("Couldn't find json data %s", name.c_str());
 			return false;
 		}
 
@@ -92,7 +93,7 @@ namespace defender::json
 		{
 			if (!array[i].IsNumber())
 			{
-				LOG("error reading json data (not a float) %s", name.c_str());
+				LOG("Couldn't find json data (not a float) %s", name.c_str());
 				return false;
 			}
 
@@ -105,7 +106,7 @@ namespace defender::json
 	{
 		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 4)
 		{
-			LOG("error reading json data %s", name.c_str());
+			LOG("Couldn't find json data %s", name.c_str());
 			return false;
 		}
 
@@ -114,12 +115,29 @@ namespace defender::json
 		{
 			if (!array[i].IsInt())
 			{
-				LOG("error reading json data (not an int) %s", name.c_str());
+				LOG("Couldn't find json data (not an int) %s", name.c_str());
 				return false;
 			}
 
 			data[i] = array[i].GetInt();
 		}
+
+		return true;
+	}
+
+	bool Get(const rapidjson::Value& value, const std::string& name, Rect& data)
+	{
+		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 4)
+		{
+			LOG("Couldn't find json data %s", name.c_str());
+			return false;
+		}
+
+		auto& array = value[name.c_str()];
+		data.x = array[0].GetInt();
+		data.y = array[1].GetInt();
+		data.w = array[2].GetInt();
+		data.h = array[3].GetInt();
 
 		return true;
 	}
