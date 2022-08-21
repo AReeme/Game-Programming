@@ -10,6 +10,7 @@ int main()
 	defender::g_inputSystem.Initialize();
 	defender::g_audiosystem.Initialize();
 	defender::g_resources.Initialize();
+	defender::g_physicsSystem.Initialize();
 
 	defender::Engine::Instance().Register();
 
@@ -32,6 +33,7 @@ int main()
 		defender::g_time.Tick();
 		defender::g_inputSystem.Update();
 		defender::g_audiosystem.Update();
+		defender::g_physicsSystem.Update();
 
 		if (defender::g_inputSystem.GetKeyDown(defender::key_escape)) quit = true;
 

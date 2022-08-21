@@ -26,6 +26,8 @@
 #include "Resource/Resource.h"
 #include "Resource/ResourceManager.h"
 
+#include "Physics/PhysicsSystem.h"
+
 #include "Renderer/Renderer.h"
 #include "Renderer/Text.h"
 #include "Renderer/Font.h"
@@ -43,6 +45,7 @@ namespace defender
 	extern InputSystem g_inputSystem;
 	extern Time g_time;
 	extern ResourceManager g_resources;
+	extern PhysicsSystem g_physicsSystem;
 	
 	class Engine : public Singleton<Engine>
 	{

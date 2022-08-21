@@ -7,7 +7,7 @@ namespace defender
 	Renderer g_renderer;
 	Time g_time;
 	ResourceManager g_resources;
-
+	PhysicsSystem g_physicsSystem;
 
 	void Engine::Register()
 	{
