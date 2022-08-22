@@ -5,6 +5,11 @@
 
 namespace defender
 {
+	void Scene::Initialize()
+	{
+		for (auto& actor : m_actors) { actor->Initialize(); }
+	}
+
 	void Scene::Update()
 	{
 		auto iter = m_actors.begin();

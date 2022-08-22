@@ -14,6 +14,7 @@ namespace defender
 		Actor() = default;
 		Actor(const Transform& transform) : m_transform{ transform } {}
 
+		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void Draw(Renderer& renderer);
 

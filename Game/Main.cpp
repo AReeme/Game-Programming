@@ -25,6 +25,7 @@ int main()
 	bool success = defender::json::Load("level.txt", document);
 
 	scene.Read(document);
+	scene.Initialize();
 
 	bool quit = false;
 	while (!quit)

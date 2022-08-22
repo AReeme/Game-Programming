@@ -1,4 +1,5 @@
 #include "PhysicsComponent.h"
+#include "Engine.h"
 
 namespace defender
 {
