@@ -15,11 +15,13 @@
 #include "Framework/Singleton.h"
 
 #include "Components/AudioComponent.h"
-#include "Components/ModelComponent.h"
 #include "Components/PhysicsComponent.h"
+#include "Components/RBPhysicsComponent.h"
 #include "Components/PlayerComponent.h"
+#include "Components/ModelComponent.h"
 #include "Components/SpriteComponent.h"
 #include "Components/SpriteAnimComponent.h"
+#include "Components/CollisionComponent.h"
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"

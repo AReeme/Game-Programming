@@ -51,4 +51,7 @@ int main()
 
 	defender::g_renderer.ShutDown();
 	defender::g_audiosystem.Shutdown();
+	defender::g_physicsSystem.Shutdown();
+	defender::g_inputSystem.ShutDown();
+	defender::g_resources.ShutDown();
 }

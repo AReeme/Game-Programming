@@ -8,15 +8,15 @@ namespace defender
 	void PlayerComponent::Update()
 	{
 		//Movement
-		//Input
+		Vector2 direction2 = Vector2::zero;
 		if (defender::g_inputSystem.GetKeyDown(defender::key_left))
 		{
-			m_owner->GetTransform().rotation -= 180 * g_time.deltaTime;
+			direction2 = Vector2::left;
 		}
 
 		if (defender::g_inputSystem.GetKeyDown(defender::key_right))
 		{
-			m_owner->GetTransform().rotation += 180 * g_time.deltaTime;
+			direction2 = Vector2::right;
 		}
 
 		float m_thrust = 0;
@@ -28,22 +28,16 @@ namespace defender
 		auto component = m_owner->GetComponent<PhysicsComponent>();
 		if (component)
 		{
-			//Thrust Force
-			Vector2 force = Vector2::Rotate({ 1, 0 }, math::DegToRad(m_owner->GetTransform().rotation)) * m_thrust;
-			component->ApplyForce(force);
-
-			//Gravitational Force
-			/*force = (Vector2{ 400, 300 } - m_owner->GetTransform().position).Normalized() * 60.f;
-			component->ApplyForce(force);*/
+			component->ApplyForce(direction2 * speed);
 		}
 
-
+		//Jump
 		if (defender::g_inputSystem.GetKeyDown(defender::key_space) == InputSystem::State::Pressed)
 		{
-			auto component = m_owner->GetComponent<AudioComponent>();
+			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)
 			{
-				component->Play();
+				component->ApplyForce(Vector2::up * 500);
 			}
 		}
 

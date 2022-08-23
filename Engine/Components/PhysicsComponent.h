@@ -1,11 +1,10 @@
 #pragma once
 #include "Framework/Component.h"
 #include "Math/Vector2.h"
-#include "Engine.h"
 
 namespace defender
 {
-	class PhysicsComponent : public defender::Component
+	class PhysicsComponent : public Component
 	{
 	public:
 		PhysicsComponent() = default;
@@ -21,6 +20,5 @@ namespace defender
 		Vector2 acceleration;
 
 		float damping = 1;
-
 	};
 }
