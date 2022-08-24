@@ -5,9 +5,11 @@
 #include <string>
 
 struct _TTF_Font;
+struct SDL_Surface;
 
 namespace defender
 {
+	struct Color;
 	class Font : public Resource
 	{
 	public:
@@ -19,9 +21,10 @@ namespace defender
 		bool Create(const std::string& filename, int fontSize);
 		bool Create(std::string filename, ...) override;
 		bool Load(const std::string& filename, int fontSize);
+		SDL_Surface* CreateSurface(const std::string& text, const Color& color);
 
-	private:
 		friend class Text;
+	private:
 		_TTF_Font* m_ttfFont = nullptr;
 	};
 }

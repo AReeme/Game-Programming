@@ -14,7 +14,7 @@ namespace defender
 	class Text
 	{
 	public:
-		Text();
+		Text() = default;
 		Text(Font* font) : m_font{ font } {}
 		~Text();
 

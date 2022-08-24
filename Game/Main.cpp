@@ -49,6 +49,8 @@ int main()
 		defender::g_renderer.EndFrame();
 	}
 
+	scene.RemoveAll();
+
 	defender::g_renderer.ShutDown();
 	defender::g_audiosystem.Shutdown();
 	defender::g_physicsSystem.Shutdown();

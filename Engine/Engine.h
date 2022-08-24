@@ -22,6 +22,7 @@
 #include "Components/SpriteComponent.h"
 #include "Components/SpriteAnimComponent.h"
 #include "Components/CollisionComponent.h"
+#include "Components/TextComponent.h"
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"

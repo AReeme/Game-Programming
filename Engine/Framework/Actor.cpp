@@ -65,7 +65,7 @@ namespace defender
 		READ_DATA(value, tag);
 		READ_DATA(value, name);
 
-		GetTransform().Read(value["transform"]);
+		if (value.HasMember("transform")) GetTransform().Read(value["transform"]);
 
 		if (value.HasMember("components") && value["components"].IsArray())
 		{

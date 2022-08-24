@@ -5,18 +5,28 @@
 
 namespace defender
 {
+	void PlayerComponent::Initialize()
+	{
+		auto component = m_owner->GetComponent<CollisionComponent>();
+		if (component)
+		{
+			component->SetCollisionEnter(std::bind(&PlayerComponent::OnCollisionEnter, this, std::placeholders::_1));
+			component->SetCollisionExit(std::bind(&PlayerComponent::OnCollisionExit, this, std::placeholders::_1));
+		}
+	}
+
 	void PlayerComponent::Update()
 	{
 		//Movement
-		Vector2 direction2 = Vector2::zero;
+		Vector2 direction = Vector2::zero;
 		if (defender::g_inputSystem.GetKeyDown(defender::key_left))
 		{
-			direction2 = Vector2::left;
+			direction = Vector2::left;
 		}
 
 		if (defender::g_inputSystem.GetKeyDown(defender::key_right))
 		{
-			direction2 = Vector2::right;
+			direction = Vector2::right;
 		}
 
 		float m_thrust = 0;
@@ -28,7 +38,7 @@ namespace defender
 		auto component = m_owner->GetComponent<PhysicsComponent>();
 		if (component)
 		{
-			component->ApplyForce(direction2 * speed);
+			component->ApplyForce(direction * speed);
 		}
 
 		//Jump
@@ -37,20 +47,9 @@ namespace defender
 			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)
 			{
-				component->ApplyForce(Vector2::up * 500);
+				component->ApplyForce(Vector2::up * 100);
 			}
 		}
-
-		//Calculate Force
-		defender::Vector2 direction{ 1, 0 };
-		direction = defender::Vector2::Rotate(direction, m_owner->GetTransform().rotation);
-		defender::Vector2 force = direction * speed * defender::g_time.deltaTime;
-
-		//Wrap
-		if (m_owner->GetTransform().position.x > defender::g_renderer.GetWidth()) m_owner->GetTransform().position.x = 0;
-		if (m_owner->GetTransform().position.x < 0) m_owner->GetTransform().position.x = (float)defender::g_renderer.GetWidth();
-		if (m_owner->GetTransform().position.y > defender::g_renderer.GetHeight()) m_owner->GetTransform().position.y = 0;
-		if (m_owner->GetTransform().position.y < 0) m_owner->GetTransform().position.y = (float)defender::g_renderer.GetHeight();
 	}
 	bool PlayerComponent::Write(const rapidjson::Value& value) const
 	{
@@ -61,5 +60,15 @@ namespace defender
 		READ_DATA(value, speed);
 
 		return true;
+	}
+
+	void PlayerComponent::OnCollisionEnter(Actor* other)
+	{
+		std::cout << "Player Enter\n";
+	}
+
+	void PlayerComponent::OnCollisionExit(Actor* other)
+	{
+		std::cout << "Player Exit\n";
 	}
 }
