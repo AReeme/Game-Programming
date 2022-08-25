@@ -12,6 +12,8 @@ namespace defender
 		using functionPtr = std::function<void(Actor*)>;
 
 	public:
+		CLASS_DECLARATION(CollisionComponent)
+
 		virtual void Initialize() override;
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;

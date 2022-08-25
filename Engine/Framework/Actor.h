@@ -12,7 +12,10 @@ namespace defender
 	{
 	public:
 		Actor() = default;
+		Actor(const Actor& other);
 		Actor(const Transform& transform) : m_transform{ transform } {}
+
+		CLASS_DECLARATION(Actor)
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -29,7 +32,7 @@ namespace defender
 		T* GetComponent();
 
 		virtual void OnCollision(Actor* other) {}
-		float GetRadius() { return 0; } //m_model.GetRadius()* std::max(m_transform.scale.x, m_transform.scale.y);
+		float GetRadius() { return 0; } 
 
 		const std::string& GetTag() { return tag; }
 		void SetTag(const std::string& tag) { this->tag = tag; }
