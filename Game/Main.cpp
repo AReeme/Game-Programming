@@ -27,7 +27,7 @@ int main()
 	scene.Read(document);
 	scene.Initialize();
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		auto actor = defender::Factory::Instance().Create<defender::Actor>("Coin");
 		actor->GetTransform().position = { defender::randomf(0, 800), 100.0f};

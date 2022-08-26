@@ -42,6 +42,8 @@ namespace defender
 
 		Transform& GetTransform() { return m_transform; }
 
+		void SetDestroy() { m_destroy = true; }
+
 		friend class Scene;
 		friend class Component;
 
