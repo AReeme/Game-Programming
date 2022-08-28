@@ -141,4 +141,52 @@ namespace defender::json
 
 		return true;
 	}
+
+	bool Get(const rapidjson::Value& value, const std::string& name, std::vector<std::string>& data)
+	{
+		if (!value.HasMember(name.c_str())) { return false; }
+
+		if (value[name.c_str()].IsArray())
+		{
+			LOG("Couldn't find json data %s", name.c_str());
+			return false;
+		}
+
+		auto& array = value[name.c_str()];
+		for (rapidjson::SizeType i = 0; i < array.Size(); i++)
+		{
+			if (!array[i].IsString())
+			{
+				LOG("Couldn't find json data (not a string) %s", name.c_str());
+				return false;
+			}
+			data.push_back(array[i].GetString());
+		}
+
+		return true;
+	}
+
+	bool Get(const rapidjson::Value& value, const std::string& name, std::vector<int>& data)
+	{
+		if (!value.HasMember(name.c_str())) { return false; }
+
+		if (value[name.c_str()].IsArray())
+		{
+			LOG("Couldn't find json data %s", name.c_str());
+			return false;
+		}
+
+		auto& array = value[name.c_str()];
+		for (rapidjson::SizeType i = 0; i < array.Size(); i++)
+		{
+			if (!array[i].IsInt())
+			{
+				LOG("Couldn't find json data (not an int) %s", name.c_str());
+				return false;
+			}
+			data.push_back(array[i].GetInt());
+		}
+
+		return true;
+	}
 }

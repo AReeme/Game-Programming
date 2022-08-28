@@ -44,6 +44,11 @@ namespace defender
 
 		void SetDestroy() { m_destroy = true; }
 
+		void SetActive(bool active = true) { this->active = active; }
+		bool IsActive() { return active; }
+
+		Scene* GetScene() { return m_scene; }
+
 		friend class Scene;
 		friend class Component;
 
@@ -52,7 +57,7 @@ namespace defender
 	protected:
 		std::string name;
 		std::string tag;
-
+		bool active = true;
 
 		bool m_destroy = false;
 

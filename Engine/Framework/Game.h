@@ -18,7 +18,7 @@ namespace defender
 		virtual void Update() = 0;
 		virtual void Draw(Renderer& renderer) = 0;
 
-		int GtScore() { return m_score; }
+		int GetScore() { return m_score; }
 		void AddPoints(int points) { m_score += points; }
 
 	protected:

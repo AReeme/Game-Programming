@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "ReemeGame.h"
 
 int main()
 {
@@ -18,23 +19,9 @@ int main()
 	defender::g_renderer.CreateWindow("Neumont", 800, 600);
 	defender::g_renderer.SetClearColor(defender::Color{ 50, 50, 50, 255 });
 
-	//Create Scene
-	defender::Scene scene;
-
-	rapidjson::Document document;
-	bool success = defender::json::Load("level.txt", document);
-
-	scene.Read(document);
-	scene.Initialize();
-
-	for (int i = 0; i < 10; i++)
-	{
-		auto actor = defender::Factory::Instance().Create<defender::Actor>("Coin");
-		actor->GetTransform().position = { defender::randomf(0, 800), 100.0f};
-		actor->Initialize();
-
-		scene.Add(std::move(actor));
-	}
+	//Create Game
+	std::unique_ptr<ReemeGame> game = std::make_unique<ReemeGame>();
+	game->Initialize();
 
 	bool quit = false;
 	while (!quit)
@@ -48,17 +35,18 @@ int main()
 		if (defender::g_inputSystem.GetKeyDown(defender::key_escape)) quit = true;
 
 		//Update Scene
-		scene.Update();
+		game->Update();
 
 		//Render Model
 		defender::g_renderer.BeginFrame();
 
-		scene.Draw(defender::g_renderer);
+		game->Draw(defender::g_renderer);
 		//defender::g_renderer.Draw(texture, { 400, 300 }, angle, { 2, 2 }, {0.5f, 0.5f});
 		defender::g_renderer.EndFrame();
 	}
 
-	scene.RemoveAll();
+	game->Shutdown();
+	defender::Factory::Instance().Shutdown();
 
 	defender::g_renderer.ShutDown();
 	defender::g_audiosystem.Shutdown();

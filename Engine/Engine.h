@@ -5,6 +5,7 @@
 #include "Core/Memory.h"
 #include "Core/File.h"
 #include "Core/Time.h"
+#include "Core/Logger.h"
 
 #include "Math/MathUtils.h"
 #include "Math/Random.h"
@@ -23,6 +24,7 @@
 #include "Components/SpriteAnimComponent.h"
 #include "Components/CollisionComponent.h"
 #include "Components/TextComponent.h"
+#include "Components/TileMapComponent.h"
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"

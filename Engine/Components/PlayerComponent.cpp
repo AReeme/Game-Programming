@@ -64,6 +64,11 @@ namespace defender
 
 	void PlayerComponent::OnCollisionEnter(Actor* other)
 	{
+		if (other->GetName() == "Coin")
+		{
+			other->SetDestroy();
+		}
+
 		std::cout << "Player Enter\n";
 	}
 

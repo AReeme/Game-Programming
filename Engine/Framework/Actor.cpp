@@ -8,7 +8,8 @@ namespace defender
 	{
 		name = other.name;
 		tag = other.tag;
-		
+		m_transform = other.m_transform;
+
 		m_scene = other.m_scene;
 
 		for (auto& component : other.m_components)
@@ -26,6 +27,8 @@ namespace defender
 
 	void Actor::Update()
 	{
+		if (!active) { return; }
+
 		for (auto& component : m_components)
 		{
 			component->Update();
@@ -78,6 +81,7 @@ namespace defender
 	{
 		READ_DATA(value, tag);
 		READ_DATA(value, name);
+		READ_DATA(value, active);
 
 		if (value.HasMember("transform")) GetTransform().Read(value["transform"]);
 

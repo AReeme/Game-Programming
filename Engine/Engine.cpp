@@ -21,5 +21,6 @@ namespace defender
 		REGISTER_CLASS(SpriteComponent);
 		REGISTER_CLASS(SpriteAnimComponent);
 		REGISTER_CLASS(TextComponent);
+		REGISTER_CLASS(TileMapComponent);
 	}
 }
