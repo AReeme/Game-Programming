@@ -12,7 +12,7 @@ namespace defender
 
 	void SpriteComponent::Draw(Renderer& renderer)
 	{
-		renderer.Draw(m_texture, source, m_owner->GetTransform());
+		renderer.Draw(m_texture, GetSource(), m_owner->GetTransform());
 	}
 	bool SpriteComponent::Write(const rapidjson::Value& value) const
 	{

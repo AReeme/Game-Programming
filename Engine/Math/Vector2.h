@@ -58,6 +58,10 @@ namespace defender
 		Vector2 Normalized();
 		void Normalize();
 
+		float Dot(const Vector2& v);
+		float GetAngleBetween(const Vector2& v);
+		float GetSignedAngleBetween(const Vector2& v);
+
 		float GetAngle();
 		static Vector2 Rotate(const Vector2& v, float angle);
 

@@ -35,11 +35,12 @@
       }, 
       { 
          "type":"Actor", 
-         "name":"Text", 
+         "name":"Title", 
+         "active":true, 
          "transform":{ 
             "position":[ 
-               40, 
-               30 
+               400, 
+               200 
             ], 
             "scale":[ 
                1, 
@@ -50,7 +51,7 @@
          "components":[ 
             { 
                "type":"TextComponent", 
-               "text":"Hello World!", 
+               "text":"Coin Collector", 
                "font_name":"fonts/Arcade.ttf", 
                "font_size":16, 
                "registration": [0.0, 0.5], 

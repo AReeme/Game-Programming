@@ -24,6 +24,10 @@ namespace defender
 
 		static const Matrix3x3 identity;
 		static const Matrix3x3 zero;
+
+		Vector2 GetTranslation() const;
+		float GetRotation() const;
+		Vector2 GetScale() const;
 	};
 
 	inline Matrix3x3::Matrix3x3(const Vector3& row1, const Vector3& row2, const Vector3& row3)

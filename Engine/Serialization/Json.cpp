@@ -29,8 +29,9 @@ namespace defender::json
 
 	bool Get(const rapidjson::Value& value, const std::string& name, int& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsInt() ==
-			false)
+		if (!value.HasMember(name.c_str())) return false;
+
+		if (!value[name.c_str()].IsInt())
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -43,7 +44,9 @@ namespace defender::json
 
 	bool defender::json::Get(const rapidjson::Value& value, const std::string& name, float& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsNumber() == false)
+		if (!value.HasMember(name.c_str())) return false;
+
+		if (!value[name.c_str()].IsNumber())
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -56,7 +59,9 @@ namespace defender::json
 
 	bool defender::json::Get(const rapidjson::Value& value, const std::string& name, bool& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsBool() == false)
+		if (!value.HasMember(name.c_str())) return false;
+
+		if (!value[name.c_str()].IsBool())
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -69,7 +74,9 @@ namespace defender::json
 
 	bool defender::json::Get(const rapidjson::Value& value, const std::string& name, std::string& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsString() == false)
+		if (!value.HasMember(name.c_str())) return false;
+
+		if (!value[name.c_str()].IsString())
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -82,7 +89,9 @@ namespace defender::json
 
 	bool defender::json::Get(const rapidjson::Value& value, const std::string& name, Vector2& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 2)
+		if (!value.HasMember(name.c_str())) return false;
+
+		if (!value[name.c_str()].IsArray() || value[name.c_str()].Size() != 2)
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -104,7 +113,9 @@ namespace defender::json
 	}
 	bool defender::json::Get(const rapidjson::Value& value, const std::string& name, Color& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 4)
+		if (!value.HasMember(name.c_str())) return false;
+
+		if (!value[name.c_str()].IsArray() || value[name.c_str()].Size() != 4)
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -127,7 +138,9 @@ namespace defender::json
 
 	bool Get(const rapidjson::Value& value, const std::string& name, Rect& data)
 	{
-		if (value.HasMember(name.c_str()) == false || value[name.c_str()].IsArray() == false || value[name.c_str()].Size() != 4)
+		if (!value.HasMember(name.c_str())) return false;
+
+		if (!value[name.c_str()].IsArray() || value[name.c_str()].Size() != 4)
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -146,7 +159,7 @@ namespace defender::json
 	{
 		if (!value.HasMember(name.c_str())) { return false; }
 
-		if (value[name.c_str()].IsArray())
+		if (!value[name.c_str()].IsArray())
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
@@ -170,7 +183,7 @@ namespace defender::json
 	{
 		if (!value.HasMember(name.c_str())) { return false; }
 
-		if (value[name.c_str()].IsArray())
+		if (!value[name.c_str()].IsArray())
 		{
 			LOG("Couldn't find json data %s", name.c_str());
 			return false;
