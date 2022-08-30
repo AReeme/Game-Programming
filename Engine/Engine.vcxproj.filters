@@ -39,9 +39,6 @@
     <Filter Include="Source\Physics">
       <UniqueIdentifier>{6aa0b080-1053-4e4f-83b9-455cd1fb8e9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Resource Files">
-      <UniqueIdentifier>{fc00de27-6d0e-41b6-b185-3654f5526ac4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathUtils.cpp">

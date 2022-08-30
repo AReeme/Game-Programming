@@ -39,7 +39,7 @@
          "active":true, 
          "transform":{ 
             "position":[ 
-               400, 
+               280, 
                200 
             ], 
             "scale":[ 
@@ -53,7 +53,7 @@
                "type":"TextComponent", 
                "text":"Coin Collector", 
                "font_name":"fonts/Arcade.ttf", 
-               "font_size":16, 
+               "font_size":48, 
                "registration": [0.0, 0.5], 
                "color":[255, 255, 0, 255] 
             } 
