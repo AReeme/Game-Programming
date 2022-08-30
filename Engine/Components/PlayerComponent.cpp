@@ -7,12 +7,7 @@ namespace defender
 {
 	void PlayerComponent::Initialize()
 	{
-		auto component = m_owner->GetComponent<CollisionComponent>();
-		if (component)
-		{
-			component->SetCollisionEnter(std::bind(&PlayerComponent::OnCollisionEnter, this, std::placeholders::_1));
-			component->SetCollisionExit(std::bind(&PlayerComponent::OnCollisionExit, this, std::placeholders::_1));
-		}
+		CharacterComponent::Initialize();
 	}
 
 	void PlayerComponent::Update()
@@ -35,10 +30,12 @@ namespace defender
 			m_thrust = 500;
 		}
 
+		Vector2 velocity;
 		auto component = m_owner->GetComponent<PhysicsComponent>();
 		if (component)
 		{
 			component->ApplyForce(direction * speed);
+			velocity = component->velocity;
 		}
 
 		//Jump
@@ -47,8 +44,14 @@ namespace defender
 			auto component = m_owner->GetComponent<PhysicsComponent>();
 			if (component)
 			{
-				component->ApplyForce(Vector2::up * 100);
+				component->ApplyForce(Vector2::up * 30);
 			}
+		}
+
+		auto renderComponent = m_owner->GetComponent<RenderComponent>();
+		if (renderComponent)
+		{
+			if (velocity.x != 0) renderComponent->SetFlipHorizontal(velocity.x < 0);
 		}
 	}
 	bool PlayerComponent::Write(const rapidjson::Value& value) const
@@ -57,9 +60,23 @@ namespace defender
 	}
 	bool PlayerComponent::Read(const rapidjson::Value& value)
 	{
-		READ_DATA(value, speed);
+		CharacterComponent::Read(value);
+		READ_DATA(value, jump);
 
 		return true;
+	}
+
+	void PlayerComponent::OnNotify(const Event& event)
+	{
+		if (event.name == "EVENT_DAMAGE")
+		{
+			health -= std::get<float>(event.data);
+			std::cout << health << std::endl;
+			if (health <= 0)
+			{
+				//Player Dead
+			}
+		}
 	}
 
 	void PlayerComponent::OnCollisionEnter(Actor* other)
@@ -75,11 +92,19 @@ namespace defender
 			other->SetDestroy();
 		}
 
-		std::cout << "Player Enter\n";
+		if (other->GetTag() == "Enemy")
+		{
+			Event event;
+			event.name = "EVENT_DAMAGE";
+			event.data = damage;
+			event.receiver = other;
+
+			g_eventManager.Notify(event);
+		}
 	}
 
 	void PlayerComponent::OnCollisionExit(Actor* other)
 	{
-		std::cout << "Player Exit\n";
+		//
 	}
 }

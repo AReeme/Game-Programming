@@ -60,31 +60,6 @@
          ] 
       },
      {
-        "type":"Actor",
-        "name":"Floor",
-        "transform":{
-           "position":[
-              400,
-              540
-           ],
-           "scale":[
-              1,
-              1
-           ],
-           "rotation":0
-        },
-        "components":[
-           {
-               "type":"RBPhysicsComponent",
-               "data.is_dynamic":false
-            },
-            {
-               "type":"CollisionComponent",
-               "data.size": [800, 24]
-            }
-        ]
-     }, 
-     {
          "type":"Actor",
          "name":"Player",
          "tag":"Player",
@@ -94,8 +69,8 @@
                300
             ],
             "scale":[
-               2,
-               2
+               1,
+               1
             ],
             "rotation":0
          },

@@ -26,6 +26,7 @@
 #include "Components/CollisionComponent.h"
 #include "Components/TextComponent.h"
 #include "Components/TileMapComponent.h"
+#include "Components/CharacterComponent.h"
 
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"

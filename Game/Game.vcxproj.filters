@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="GameComponents">
+      <UniqueIdentifier>{39af8218-d6ba-41bc-9965-b5bdf4975e5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -17,6 +20,9 @@
     <ClCompile Include="ReemeGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameComponents\EnemyComponent.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -24,6 +30,9 @@
     </ClInclude>
     <ClInclude Include="ReemeGame.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponents\EnemyComponent.h">
+      <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

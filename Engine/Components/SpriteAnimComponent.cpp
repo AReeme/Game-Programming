@@ -22,7 +22,7 @@ namespace defender
 
     void SpriteAnimComponent::Draw(Renderer& renderer)
     {
-        renderer.Draw(m_texture, GetSource(), m_owner->GetTransform());
+        renderer.Draw(m_texture, GetSource(), m_owner->GetTransform(), registration, flipHorizontal);
     }
 
     bool SpriteAnimComponent::Write(const rapidjson::Value& value) const

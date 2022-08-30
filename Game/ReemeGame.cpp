@@ -1,8 +1,11 @@
 #include "ReemeGame.h"
+#include "GameComponents/EnemyComponent.h"
 #include "Engine.h"
 
 void ReemeGame::Initialize()
 {
+	defender::REGISTER_CLASS(EnemyComponent);
+
 	m_scene = std::make_unique<defender::Scene>();
 
 	rapidjson::Document document;
@@ -46,6 +49,14 @@ void ReemeGame::Update()
 		for (int i = 0; i < 10; i++)
 		{
 			auto actor = defender::Factory::Instance().Create<defender::Actor>("Coin");
+			actor->GetTransform().position = { defender::randomf(0, 800), 100.0f };
+			actor->Initialize();
+
+			m_scene->Add(std::move(actor));
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			auto actor = defender::Factory::Instance().Create<defender::Actor>("Ghost");
 			actor->GetTransform().position = { defender::randomf(0, 800), 100.0f };
 			actor->Initialize();
 
