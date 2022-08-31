@@ -61,6 +61,7 @@ namespace defender
 		bool active = true;
 
 		bool m_destroy = false;
+		float lifespan = 0;
 
 		//Physics
 		Vector2 m_velocity;

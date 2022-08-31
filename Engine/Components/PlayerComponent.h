@@ -23,8 +23,7 @@ namespace defender
 
 	public:
 		float jump = 3000;
-
-
-
+		int lives = 3;
+		int m_groundCount = 0;
 	};
 }

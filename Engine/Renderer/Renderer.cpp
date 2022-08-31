@@ -4,6 +4,7 @@
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
 #include "Math/Rect.h"
+#include "Math/Matrix3x3.h"
 
 #include <SDL.h> 
 #include <SDL_ttf.h>
@@ -16,6 +17,9 @@ namespace defender
 		SDL_Init(SDL_INIT_VIDEO);
 		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 		TTF_Init();
+
+		m_view = Matrix3x3::identity;
+		m_viewport = Matrix3x3::identity;
 	}
 
 	void Renderer::ShutDown()
@@ -109,11 +113,13 @@ namespace defender
 
 	void Renderer::Draw(std::shared_ptr<Texture> texture, const Rect& source, const Transform& transform, const Vector2& registration, bool flipH)
 	{
-		Vector2 size = Vector2{source.w, source.h};
-		size = size * transform.scale;
+		Matrix3x3 mx = m_viewport * m_view * transform.matrix;
 
-		Vector2 origin = (size * registration);
-		Vector2 tposition = transform.position - origin;
+		Vector2 size = Vector2{ source.w, source.h };
+		size = size * mx.GetScale();
+
+		Vector2 origin = size * registration;
+		Vector2 tposition = mx.GetTranslation() - origin;
 
 		SDL_Rect dest;
 		dest.x = (int)(tposition.x);
@@ -128,8 +134,8 @@ namespace defender
 		src.h = source.h;
 
 		SDL_Point center{ (int)origin.x, (int)origin.y };
-		
+
 		SDL_RendererFlip flip = (flipH) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, &src, &dest, transform.rotation, &center, flip);
+		SDL_RenderCopyEx(m_renderer, texture -> m_texture, &src, &dest, math::RadToDeg(mx.GetRotation()), &center, flip);
 	}
 }

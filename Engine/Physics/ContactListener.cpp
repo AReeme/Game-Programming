@@ -43,12 +43,12 @@ namespace defender
 
 			if (actorA->GetComponent<CollisionComponent>())
 			{
-				actorA->GetComponent<CollisionComponent>()->OnCollisionEnter(actorB);
+				actorA->GetComponent<CollisionComponent>()->OnCollisionExit(actorB);
 			}
 
 			if (actorB->GetComponent<CollisionComponent>())
 			{
-				actorB->GetComponent<CollisionComponent>()->OnCollisionEnter(actorA);
+				actorB->GetComponent<CollisionComponent>()->OnCollisionExit(actorA);
 			}
 		}
 	}

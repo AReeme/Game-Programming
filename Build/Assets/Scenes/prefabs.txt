@@ -4,6 +4,7 @@
             "type":"Actor",
             "name":"Coin",
             "tag":"Pickup",
+            "lifespan":4,
             "prefab":true,
             "transform":{
                 "position":[
@@ -31,15 +32,21 @@
                     ],
                     "data.restitution":0.7
                 },
-                {
-                    "type":"SpriteAnimComponent",
-                    "texture_name":"Textures/coin.png",
-                    "fps":12,
-                    "num_columns":8,
-                    "num_rows":1,
-                    "start_frame":1,
-                    "end_frame":8
-                }
+                { 
+                     "type":"SpriteAnimComponent", 
+                     "default_sequence":"idle", 
+                     "sequences":[ 
+                       { 
+                         "sequence.name":"idle", 
+                         "sequence.fps":12, 
+                         "sequence.num_columns":8, 
+                         "sequence.num_rows":1, 
+                         "sequence.start_frame":1, 
+                         "sequence.end_frame":8, 
+                         "texture_name":"Textures/coin.png" 
+                        } 
+                       ] 
+                    } 
             ]
         },
         {
@@ -81,15 +88,21 @@
                     ]
                 },
                 {
-                    "type":"SpriteAnimComponent",
-                    "texture_name":"Textures/ghost-idle.png",
-                    "fps":12,
-                    "num_columns":7,
-                    "num_rows":1,
-                    "start_frame":1,
-                    "end_frame":7
-                }
-            ]
-        }
-    ]
-}
+                "type":"SpriteAnimComponent", 
+                "default_sequence":"idle", 
+                "sequences":[ 
+                { 
+                    "sequence.name":"idle", 
+                    "sequence.fps":12, 
+                    "sequence.num_columns":7, 
+                    "sequence.num_rows":1, 
+                    "sequence.start_frame":1, 
+                    "sequence.end_frame":7, 
+                    "texture_name":"Textures/ghost-idle.png" 
+                } 
+                ] 
+            } 
+                ]
+            }
+        ]
+    }

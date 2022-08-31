@@ -66,6 +66,27 @@ void ReemeGame::Update()
 		break;
 
 	case ReemeGame::gameState::game:
+	{
+		auto actor = m_scene->GetActorFromName("Score");
+		auto component = actor->GetComponent<defender::TextComponent>();
+		component->SetText(std::to_string(m_score));
+	}
+	{
+		auto actor = m_scene->GetActorFromName("Health");
+		auto component = actor->GetComponent<defender::TextComponent>();
+
+		auto player = m_scene->GetActorFromName("Player");
+		auto playerComponent = player->GetComponent<defender::PlayerComponent>();
+		component->SetText(std::to_string((int)playerComponent->health));
+	}
+	{
+		auto actor = m_scene->GetActorFromName("Lives");
+		auto component = actor->GetComponent<defender::TextComponent>();
+
+		auto player = m_scene->GetActorFromName("Player");
+		auto playerComponent = player->GetComponent<defender::PlayerComponent>();
+		component->SetText(std::to_string((int)m_lives));
+	}
 		break;
 
 	case ReemeGame::gameState::playerDead:
