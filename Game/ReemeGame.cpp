@@ -62,6 +62,7 @@ void ReemeGame::Update()
 
 			m_scene->Add(std::move(actor));
 		}
+
 		m_gameState = gameState::game;
 		break;
 
@@ -76,16 +77,46 @@ void ReemeGame::Update()
 		auto component = actor->GetComponent<defender::TextComponent>();
 
 		auto player = m_scene->GetActorFromName("Player");
-		auto playerComponent = player->GetComponent<defender::PlayerComponent>();
-		component->SetText(std::to_string((int)playerComponent->health));
+		if (player)
+		{
+			auto playerComponent = player->GetComponent<defender::PlayerComponent>();
+			component->SetText(std::to_string((int)playerComponent->health));
+
+			if (playerComponent->health <= 0)
+			{
+				m_gameState = gameState::playerDead;
+			}
+
+		}
+
+		if (player)
+		{
+			m_stateTimer--;
+			if (m_stateTimer <= 0)
+			{
+				for (int i = 0; i < 1; i++)
+				{
+					auto actor = defender::Factory::Instance().Create<defender::Actor>("Coin");
+					actor->GetTransform().position = { defender::randomf(0, 800), 100.0f };
+					actor->Initialize();
+
+					m_scene->Add(std::move(actor));
+					m_stateTimer = 50.0f;
+				}
+			}
+		}
 	}
 	{
 		auto actor = m_scene->GetActorFromName("Lives");
 		auto component = actor->GetComponent<defender::TextComponent>();
 
 		auto player = m_scene->GetActorFromName("Player");
-		auto playerComponent = player->GetComponent<defender::PlayerComponent>();
-		component->SetText(std::to_string((int)m_lives));
+		if (player)
+		{
+			auto playerComponent = player->GetComponent<defender::PlayerComponent>();
+			component->SetText(std::to_string((int)playerComponent->lives));
+		}
+
 	}
 		break;
 
@@ -93,12 +124,13 @@ void ReemeGame::Update()
 		m_stateTimer -= defender::g_time.deltaTime;
 		if (m_stateTimer <= 0)
 		{
-			m_gameState = (m_lives > 0) ? gameState::startLevel : gameState::gameOver;
+			auto player = m_scene->GetActorFromName("Player");
+			auto playerComponent = player->GetComponent<defender::PlayerComponent>();
+			m_gameState = (playerComponent->lives > 0) ? gameState::startLevel : gameState::gameOver;
 		}
 		break;
-
 	case ReemeGame::gameState::gameOver:
-
+		m_gameState = gameState::startLevel;
 		break;
 
 	default:
@@ -124,6 +156,6 @@ void ReemeGame::OnAddPoints(const defender::Event& event)
 void ReemeGame::OnPlayerDead(const defender::Event& event)
 {
 	m_gameState = gameState::playerDead;
-	m_stateTimer = 3.0f;
-	m_lives--;
+	m_stateTimer = 50.0f;
+
 }

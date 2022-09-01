@@ -89,11 +89,15 @@ namespace defender
 		if (event.name == "EVENT_DAMAGE")
 		{
 			health -= std::get<float>(event.data);
-			std::cout << health << std::endl;
 			if (health <= 0)
 			{
 				lives--;
 				health = 100;
+			}
+
+			if (lives <= 0)
+			{
+				m_owner->SetDestroy();
 			}
 		}
 	}
@@ -115,17 +119,6 @@ namespace defender
 
 			other->SetDestroy();
 		}
-
-		if (other->GetTag() == "Enemy")
-		{
-			Event event;
-			event.name = "EVENT_DAMAGE";
-			event.data = damage;
-			event.receiver = other;
-
-			g_eventManager.Notify(event);
-		}
-
 	}
 
 	void PlayerComponent::OnCollisionExit(Actor* other)

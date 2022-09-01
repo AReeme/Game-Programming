@@ -178,7 +178,7 @@
             {
                "type":"PlayerComponent",
                "speed":40,
-               "jump":100
+               "jump":300
             },
             {
                "type":"RBPhysicsComponent",
